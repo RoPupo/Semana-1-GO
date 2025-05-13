@@ -21,6 +21,7 @@ func bhaskara(a, b, c int) (int, int) {
 		fmt.Println("Delta é positivo, existem duas raízes reais.")
 		return xpos, xneg
 	}
+	return 0, 0
 }
 
 func main() {
