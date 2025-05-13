@@ -7,27 +7,27 @@ import (
 
 // Calcula o discriminante (delta) de uma equação do segundo grau
 // Retorna delta = b² - 4ac.
-func bhaskara(a, b, c int) (int, int) {
-	deltaresult := (b * b) - 4*a*c
-	SquaretDelta := math.Sqrt(float64(deltaresult)) // Raiz quadrada do delta
-	xpos := -b + (int(SquaretDelta))/2*a
-	xneg := -b - (int(SquaretDelta))/2*a
-	if deltaresult < 0 {
-		fmt.Println("Delta é negativo, não existe raiz real.")
-	} else if deltaresult == 0 {
-		fmt.Println("Delta é igual a zero, existe uma raiz real.")
-		return xpos, xneg
-	} else {
-		fmt.Println("Delta é positivo, existem duas raízes reais.")
-		return xpos, xneg
+func bhaskara(a, b, c int) (float64, float64, int) {
+	delta := (b * b) - 4*a*c
+	if delta < 0 { // Se delta for negativo, não existem raízes reais, o código não deve retornar nada, apenas imprimir uma mensagem
+		return 0, 0, delta
 	}
-	return 0, 0
-}
+	SqrtDelta := math.Sqrt(float64(delta)) // Raiz quadrada do delta
+	root1 := (-float64(b) + SqrtDelta) / (2 * float64(a))
+	root2 := (-float64(b) - SqrtDelta) / (2 * float64(a))
 
+	return root1, root2, delta
+}
 func main() {
-	fmt.Println(bhaskara(4, 2, -6)) // Exemplo de uso da função delta
-	// Resultado esperado é: X' = 18 X'' = -22
-	// Delta é positivo, existem duas raízes reais.
+	root1, root2, delta := bhaskara(4, 8, -15)
+	if delta < 0 {
+		fmt.Println("Delta é negativo, não existem raízes reais para essa equação")
+	} else if delta == 0 {
+		fmt.Println("Delta é igual a zero, existe apenas uma raiz real para essa equação")
+		fmt.Println("Raiz:", root1)
+	} else if delta > 0 {
+		fmt.Println("Delta é positivo, existem duas raízes reais para essa equação")
+		fmt.Printf("Raiz 1: %.4f\n", root1)
+		fmt.Printf("Raiz 2:%.4f\n", root2)
+	}
 }
-
-// O código calcula o discriminante (delta) de uma equação do segundo grau
